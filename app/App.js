@@ -18,7 +18,6 @@ const Header = () => (
 const Summary = () => (
   <ScrollView contentContainerStyle={ styles.summary }>
     <MedicalData />
-    <Reminders />
   </ScrollView>
 )
 
@@ -57,7 +56,7 @@ export default class App extends Component {
           
           <Router sceneStyle={ styles.routerContainer }>          
             <Scene key="root" tabs hideTabBar>
-              <Scene key="summary" component={ Summary } hideNavBar />
+              <Scene key="summary" component={ MedicalData } hideNavBar />
               <Scene key="calldoctor" component={ CallDoctor } hideNavBar />
               <Scene key="preferences" component={ Preferences } hideNavBar />
             </Scene>          

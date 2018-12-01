@@ -2,12 +2,15 @@ import React, {Component} from 'react';
 import { View, Text, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 
-import styles, { reactiveStyles } from './styles';
+import { URLS, sendDataPost } from '../../utils';
 import { setPatientCommentAction } from '../../reducer';
+import styles from './styles';
 
 const mapStateToProps = state => {
     return {
-      patientComment: state.patientComment
+      patientComment: state.patientComment,
+      isConnected: state.kowechubConnected,
+      medicalData: state.medicalData
     };
 };
   
@@ -21,18 +24,43 @@ class CallDoctor extends Component {
     }
 
     sendData = () => {
-        const { patientComment, setPatientComment } = this.props
+        const { patientComment, setPatientComment, medicalData, isConnected } = this.props
 
         if( patientComment === "" ) {
             console.log("Error")
         } else {
-            console.log("Data sent")
-            
-            setPatientComment("")
+            const data = {
+                wtf: patientComment,
+                medicalData: []
+            },
+            now = new Date()
 
-            this.setState({
-                sent: true
+            data.medicalData.push({
+                name: "date",
+                data: `${ now.getDate() }/${ now.getMonth() }`
             })
+
+            Object.keys(medicalData).map(key => {
+                data.medicalData.push({
+                    name: key,
+                    data: medicalData[key]
+                })
+            })
+
+            sendDataPost(
+                isConnected ? URLS.INTERNAL_CALL_DOCTOR : URLS.EXTERNAL_CALL_DOCTOR,
+                data
+            ).then((res) => {
+                console.log("Data sent " + res)
+            
+                setPatientComment("")
+
+                this.setState({
+                    sent: true
+                })
+            }).catch(e => {
+                console.log(e.message)
+            })           
         }
     }
 

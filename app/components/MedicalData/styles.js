@@ -2,11 +2,17 @@ import { StyleSheet } from 'react-native';
 import { Geometry, Fonts } from '../../StyleVars';
 
 export default styles = StyleSheet.create({
+    medicalDataContainer: {
+        alignItems: "center",
+        paddingHorizontal: Geometry.padding,
+    },
+
     cardContainer: {
-        height: 270,
+        marginBottom: Geometry.padding,
         padding: Geometry.padding,
         backgroundColor: "white",
         borderRadius: Geometry.radius,
+        width: "100%",
 
         shadowOffset: {
             width: 0,
@@ -44,5 +50,25 @@ export default styles = StyleSheet.create({
         ...Fonts.mainHeader,
         width: 100,
         textAlign: "right",
-    }
+    },
+
+    reminder: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        height: 40,
+        marginTop: 15,
+        marginBottom: 15,
+    },
+    reminderImage: {
+        width: 50,
+        height: 40,
+        marginRight: 15,
+    },
+    reminderText: {
+        ...Fonts.cardText,
+        width: 300,
+        textAlign: "left",
+    },
 });

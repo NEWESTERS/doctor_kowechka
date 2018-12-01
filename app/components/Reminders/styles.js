@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Geometry } from '../../StyleVars';
+import { Geometry, Fonts } from '../../StyleVars';
 
 export default styles = StyleSheet.create({
     cardContainer: {
@@ -19,10 +19,8 @@ export default styles = StyleSheet.create({
         elevation: 9,
     },
     cardHeader: {
-        color: Colors.main,
+        ...Fonts.cardHeader,
         textAlign: "center",
-        fontSize: 22.5,
-        fontWeight: "500",
     },
     reminder: {
         flex: 1,
@@ -39,9 +37,7 @@ export default styles = StyleSheet.create({
     },
     reminderText: {
         marginLeft: 15,
-        color: Colors.secondary,
-        fontSize: 20,
-        fontWeight: "300",
+        ...Fonts.cardText,
         width: 300,
         textAlign: "left",
     },

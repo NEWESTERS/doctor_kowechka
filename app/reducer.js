@@ -1,6 +1,7 @@
 export const ACTIONS = {
     SET_PATIENT_COMMENT: 'SET_PATIENT_COMMENT',
     SET_MEDICAL_DATA: 'SET_MEDICAL_DATA',
+    SET_KOWECHUB_CONNECTION: 'SET_KOWECHUB_CONNECTION'
 }
 
 const initialState = {
@@ -11,7 +12,9 @@ const initialState = {
         "picfluometry": 0,
         "upperPressure": 0,
         "lowerPressure": 0
-    }
+    },
+
+    "kowechubConnected": undefined
 }
 
 export default function reducer(state = initialState, action) {
@@ -29,6 +32,11 @@ export default function reducer(state = initialState, action) {
         !medicalData[key] && (medicalData[key] = value)
     
         return { ...state, medicalData: medicalData };
+
+    case ACTIONS.SET_KOWECHUB_CONNECTION:
+        const { isConnected } = action.payload
+
+        return { ...state, kowechubConnected: isConnected }
     
     default:
       return state;
@@ -50,6 +58,15 @@ export const setMedicalDataAction = (key, value) => (
         payload: {
             key: key,
             value: value
+        }
+    }
+)
+
+export const setKowechubConnectionAction = (isConnected) => (
+    {
+        type: ACTIONS.SET_KOWECHUB_CONNECTION,
+        payload: {
+            isConnected: isConnected
         }
     }
 )
