@@ -2,11 +2,32 @@ const Colors = {
     background: "#feeefe",
     main: "#834383",
     secondary: "#7e777e",
+    formColor: "#eee"
 }
 
 const Geometry = {
-    radius: 15,
+    radius: 20,
     padding: 15,
 }
 
-export { Colors, Geometry }
+const Fonts = {
+    mainHeader: {
+        color: Colors.main,
+        fontWeight: "700",
+        fontSize: 30,
+    },
+
+    cardHeader: {
+        color: Colors.main,
+        fontSize: 22.5,
+        fontWeight: "600",
+    },
+    
+    cardText: {
+        color: Colors.secondary,
+        fontSize: 20,
+        fontWeight: "300",
+    }
+}
+
+export { Colors, Geometry, Fonts }

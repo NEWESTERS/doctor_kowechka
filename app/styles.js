@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Geometry } from './StyleVars';
+import { Colors, Geometry, Fonts } from './StyleVars';
 
 export default styles = StyleSheet.create({
     appContainer: {   
@@ -11,10 +11,8 @@ export default styles = StyleSheet.create({
       marginVertical: 7.5,
       marginTop: 40,
       marginBottom: -5,
-      color: Colors.main,
       textAlign: "center",
-      fontSize: 30,
-      fontWeight: "700",
+      ...Fonts.mainHeader,
     },
     routerContainer: {
         backgroundColor: Colors.background,

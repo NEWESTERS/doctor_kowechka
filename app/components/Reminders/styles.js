@@ -38,9 +38,9 @@ export default styles = StyleSheet.create({
         height: 40,
     },
     reminderText: {
-        marginLeft: 20,
+        marginLeft: 15,
         color: Colors.secondary,
-        fontSize: 22.5,
+        fontSize: 20,
         fontWeight: "300",
         width: 300,
         textAlign: "left",

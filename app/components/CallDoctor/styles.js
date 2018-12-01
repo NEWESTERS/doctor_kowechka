@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Geometry, Colors } from '../../StyleVars';
+import { Geometry, Colors, Fonts } from '../../StyleVars';
 
 export default styles = StyleSheet.create({
     questionsContainer: {
@@ -28,31 +28,40 @@ export default styles = StyleSheet.create({
     },
 
     commentField: {
-        height: 50,
+        height: 60,
         width: "100%",
         padding: Geometry.padding,
         borderRadius: Geometry.radius,
         borderColor: Colors.main,
-        borderWidth: 1,
+        backgroundColor: Colors.formColor,
+        ...Fonts.cardText,
     },
 
     commentFieldLabel: {
-        color: Colors.main,
-        fontSize: 22.5,
-        fontWeight: "500",
+        ...Fonts.cardHeader,
         marginBottom: 10,
         textAlign: "center",
     },
 
     sendButton: {
         borderRadius: Geometry.radius,
-        overflow: "hidden",
         width: 200,
         marginBottom: Geometry.padding,
+        backgroundColor: Colors.secondary,
+
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.15,
+        shadowRadius: 5.46,     
+        elevation: 9,
+    },
+    sendButtonActive: {
+        backgroundColor: Colors.main,
     },
     sendButtonText: {
         padding: 5,
-        backgroundColor: Colors.main,
         color: "white",
         fontSize: 20,
         fontWeight: "300",
@@ -74,9 +83,11 @@ export default styles = StyleSheet.create({
         elevation: 9,
     },
     successBoxHeader: {
-        color: Colors.main,
+        ...Fonts.cardHeader,
         textAlign: "center",
-        fontSize: 22.5,
-        fontWeight: "500",
+    },
+    successBoxText: {
+        ...Fonts.cardText,
+        textAlign: "center",
     }
 })
