@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import { View, Text, ScrollView, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, TextInput, Platform, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 
+import NotificationsService from '../NotificationService';
 import { URLS, sendDataPost } from '../../utils';
 import { setPatientCommentAction } from '../../reducer';
 import styles from './styles';
@@ -19,8 +20,25 @@ const mapDispatchToProps = {
 };
 
 class CallDoctor extends Component {
+    constructor(props) {
+        super(props)
+
+        if (Platform.OS === "android") {
+            this.notification = new NotificationsService(this.onRegister, this.onNotification);
+        }
+    }
+
     state = {
-        sent: false
+        sent: false,
+        loading: false
+    }
+
+    onRegister = () => {
+        console.log("Notification registered")
+    }
+
+    onNotification = () => {
+        console.log("Notification received")
     }
 
     sendData = () => {
@@ -29,6 +47,10 @@ class CallDoctor extends Component {
         if( patientComment === "" ) {
             console.log("Error")
         } else {
+            this.setState({
+                loading: true
+            })
+
             const data = {
                 wtf: patientComment,
                 medicalData: []
@@ -52,11 +74,16 @@ class CallDoctor extends Component {
                 data
             ).then((res) => {
                 console.log("Data sent " + res)
+
+                if (Platform.OS === "android") {
+                    this.notification.scheduleNotification()
+                }
             
                 setPatientComment("")
 
                 this.setState({
-                    sent: true
+                    sent: true,
+                    loading: false
                 })
             }).catch(e => {
                 console.log(e.message)
@@ -65,31 +92,39 @@ class CallDoctor extends Component {
     }
 
     render() {
-        const { sent } = this.state,
+        const { sent, loading } = this.state,
             { patientComment, setPatientComment } = this.props
 
         if(!sent) {
-            return (
-                <ScrollView contentContainerStyle={ styles.questionsContainer }>
-                    <View style={ styles.question }>
-                        <Text style={ styles.commentFieldLabel }>Опишите ваше состояние</Text>
-                        <TextInput
-                            style={ styles.commentField }
-                            multiline={ true }
-                            onChangeText={ setPatientComment }
-                            value={ patientComment }
-                        />
-                    </View>
+            if (!loading) {
+                return (
+                    <ScrollView contentContainerStyle={ styles.questionsContainer }>
+                        <View style={ styles.question }>
+                            <Text style={ styles.commentFieldLabel }>Опишите ваше состояние</Text>
+                            <TextInput
+                                style={ styles.commentField }
+                                multiline={ true }
+                                onChangeText={ setPatientComment }
+                                value={ patientComment }
+                            />
+                        </View>
 
-                    <TouchableOpacity
-                        disabled={ patientComment === "" }
-                        style={ [ styles.sendButton, patientComment !== "" ? styles.sendButtonActive : {} ] }
-                        onPress={ this.sendData }
-                    >
-                        <Text style={ styles.sendButtonText }>Отправить врачу</Text>
-                    </TouchableOpacity>
-                </ScrollView>
-            )
+                        <TouchableOpacity
+                            disabled={ patientComment === "" }
+                            style={ [ styles.sendButton, patientComment !== "" ? styles.sendButtonActive : {} ] }
+                            onPress={ this.sendData }
+                        >
+                            <Text style={ styles.sendButtonText }>Отправить врачу</Text>
+                        </TouchableOpacity>
+                    </ScrollView>
+                )
+            } else {
+                return (
+                    <View style={{ flex: 1, justifyContent: "center" }}>
+                        <ActivityIndicator size="large" />
+                    </View>    
+                )
+            }
         } else {
             return(
                 <View style={{ flex: 1, justifyContent: "center" }}>

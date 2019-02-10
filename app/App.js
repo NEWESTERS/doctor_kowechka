@@ -1,24 +1,17 @@
 import React, {Component} from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text } from 'react-native';
 import { Scene, Router, Actions } from 'react-native-router-flux';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducer';
 
 import MedicalData from './components/MedicalData';
-import Reminders from './components/Reminders';
 import CallDoctor from './components/CallDoctor';
 import NavBar from './components/NavBar';
 import styles from './styles';
 
 const Header = () => (
   <Text style={ styles.header }>Доктор kowechka</Text>
-)
-
-const Summary = () => (
-  <ScrollView contentContainerStyle={ styles.summary }>
-    <MedicalData />
-  </ScrollView>
 )
 
 const Preferences = () => (

@@ -91,7 +91,7 @@ class MedicalData extends Component {
                     <View style={ styles.reminder }>
                         <Image style={ styles.reminderImage } resizeMode="contain"
                             source={ require('../../../assets/images/pills.png') } />
-                        <Text style={ styles.reminderText }>Выпить эспумизан</Text>
+                        <Text style={ styles.reminderText }>Сделать пикфлуометрию</Text>
                     </View>
                 </View>
 

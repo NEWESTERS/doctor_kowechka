@@ -25,7 +25,7 @@ const Fonts = {
     
     cardText: {
         color: Colors.secondary,
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: "300",
     }
 }
